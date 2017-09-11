@@ -106,7 +106,7 @@
 
 /*
 总结：
-	1.Chrome ：DOM 方法要比 innerHTML 性能要好，所以要根据用户使用量来做选择；
+	1.Chrome ：DOM方法要比 innerHTML 性能要好，所以要根据用户使用量来做选择；
 */
 
 </script>
