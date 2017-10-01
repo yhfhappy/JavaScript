@@ -16,8 +16,8 @@
     }
 
     .ball{
-        width: 200px;
-        height: 200px;
+        width: 30px;
+        height: 30px;
         background-color: yellow;
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
@@ -29,53 +29,64 @@
 <script>
 window.onload = function(){
     var oWrap = document.querySelector('#wrap');
-    var oBall = document.createElement('div');
 
-    oBall.className = 'ball';
-    oWrap.appendChild(oBall);
+    createBall(100);
 
-    oBall.style.left = random(0,oWrap.offsetWidth - oBall.offsetWidth) + 'px';
-    oBall.style.top = random(0,oWrap.offsetHeight - oBall.offsetHeight) + 'px';
+    function createBall(num){
+        for(var i=0;i<num;i++){
+            var oBall = document.createElement('div');
 
-    move();
-
-    function move(){
-        var oLeft = oBall.offsetLeft;
-        var oTop = oBall.offsetTop;
-
-        var judgeLeft = true;
-        var judgeTop = true;
-
-        var timer = setInterval(function(){
-
-            if(judgeLeft){
-                oLeft ++;
-            } else{
-                oLeft --;
-            }
-
-            if(judgeTop){
-                oTop ++;
-            } else{
-                oTop --;
-            }
-
-            if( oLeft >= oWrap.offsetWidth - oBall.offsetWidth ){
-                judgeLeft = false;
-            } else if( oLeft <= 0 ) {
-                judgeLeft = true;
-            }
-
-            if(oTop <= 0 ){
-                judgeTop = true;
-            } else if( oTop >= oWrap.offsetHeight - oBall.offsetHeight ) {
-                judgeTop = false;
-            }
-
-            oBall.style.left = oLeft + 'px';
-            oBall.style.top = oTop + 'px';
-        },5);
+            oBall.className = 'ball';
+            oWrap.appendChild(oBall);
+        }
     };
+
+    var aBall = document.querySelectorAll(".ball");
+
+    for(var i=0;i<aBall.length;i++) {
+        aBall[i].style.left = random(0, oWrap.offsetWidth - aBall[i].offsetWidth) + 'px';
+        aBall[i].style.top = random(0, oWrap.offsetHeight - aBall[i].offsetHeight) + 'px';
+
+        move(oWrap,aBall[i]);
+    }
+
+        function move(parent,obj) {
+            var oLeft = obj.offsetLeft;
+            var oTop = obj.offsetTop;
+
+            var judgeLeft = true;
+            var judgeTop = true;
+
+            var timer = setInterval(function () {
+
+                if (judgeLeft) {
+                    oLeft++;
+                } else {
+                    oLeft--;
+                }
+
+                if (judgeTop) {
+                    oTop++;
+                } else {
+                    oTop--;
+                }
+
+                if (oLeft >= parent.offsetWidth - obj.offsetWidth) {
+                    judgeLeft = false;
+                } else if (oLeft <= 0) {
+                    judgeLeft = true;
+                }
+
+                if (oTop <= 0) {
+                    judgeTop = true;
+                } else if (oTop >= parent.offsetHeight - obj.offsetHeight) {
+                    judgeTop = false;
+                }
+
+                obj.style.left = oLeft + 'px';
+                obj.style.top = oTop + 'px';
+            }, 5);
+    }
 
     function random(min,max){
         return parseInt(Math.random()*(max - min) + min);
