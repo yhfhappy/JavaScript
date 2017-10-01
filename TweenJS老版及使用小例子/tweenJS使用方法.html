@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Tween.js"></script>
+    <style>
+        #wrap{
+            width: 1000px;
+            height: 800px;
+            border: 1px solid #CCCCCC;
+            margin: 30px auto;
+        }
+
+        .box{
+            width: 150px;
+            height: 150px;
+            background-color: darkslategrey;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oWrap = document.querySelector("#wrap");
+            var oBox = oWrap.querySelector(".box");
+
+            move();
+
+            function move(){
+                // t,b,c,d
+                // t：初始时间；
+                // b：初始值；
+                // c：改变值（结束值-初始值）；
+                // d：结束时间（持续时间）；
+
+                var t = 0;
+                var b = oBox.offsetLeft;
+                var c = 1000 - oBox.offsetWidth;
+                var d = 1000;
+
+                var speed = 10; //每次t增加多少，一直增加到d为止。
+
+                var timer = setInterval(function(){
+                    t += speed;
+
+                    if( t>d ){
+                        clearInterval(timer);
+                    }
+
+                    oBox.style.left = Tween.Bounce.easeOut(t,b,c,d) + "px";
+                },30);
+            };
+        };
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <div class="box"></div>
+</div>
+</body>
+</html>
