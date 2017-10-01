@@ -32,15 +32,6 @@ window.onload = function(){
 
     createBall(100);
 
-    function createBall(num){
-        for(var i=0;i<num;i++){
-            var oBall = document.createElement('div');
-
-            oBall.className = 'ball';
-            oWrap.appendChild(oBall);
-        }
-    };
-
     var aBall = document.querySelectorAll(".ball");
 
     for(var i=0;i<aBall.length;i++) {
@@ -90,6 +81,15 @@ window.onload = function(){
 
     function random(min,max){
         return parseInt(Math.random()*(max - min) + min);
+    };
+
+    function createBall(num){
+        for(var i=0;i<num;i++){
+            var oBall = document.createElement('div');
+
+            oBall.className = 'ball';
+            oWrap.appendChild(oBall);
+        }
     };
 };
 </script>
