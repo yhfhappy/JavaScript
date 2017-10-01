@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>一直运动的小球</title>
+<style>
+    body{background-color: #000;}
+
+    #wrap{
+        width: 1000px;
+        height: 800px;
+        border: 1px solid #CCC;
+        margin: 50px auto;
+        background-color: olive;
+        position: relative;
+    }
+
+    .ball{
+        width: 200px;
+        height: 200px;
+        background-color: yellow;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        position: absolute;
+    }
+</style>
+
+<script>
+window.onload = function(){
+    var oWrap = document.querySelector('#wrap');
+    var oBall = document.createElement('div');
+
+    oBall.className = 'ball';
+    oWrap.appendChild(oBall);
+
+    oBall.style.left = random(0,oWrap.offsetWidth - oBall.offsetWidth) + 'px';
+    oBall.style.top = random(0,oWrap.offsetHeight - oBall.offsetHeight) + 'px';
+
+    move();
+
+    function move(){
+        var oLeft = oBall.offsetLeft;
+        var oTop = oBall.offsetTop;
+
+        var judgeLeft = true;
+        var judgeTop = true;
+
+        var timer = setInterval(function(){
+
+            if(judgeLeft){
+                oLeft ++;
+            } else{
+                oLeft --;
+            }
+
+            if(judgeTop){
+                oTop ++;
+            } else{
+                oTop --;
+            }
+
+            if( oLeft >= oWrap.offsetWidth - oBall.offsetWidth ){
+                judgeLeft = false;
+            } else if( oLeft <= 0 ) {
+                judgeLeft = true;
+            }
+
+            if(oTop <= 0 ){
+                judgeTop = true;
+            } else if( oTop >= oWrap.offsetHeight - oBall.offsetHeight ) {
+                judgeTop = false;
+            }
+
+            oBall.style.left = oLeft + 'px';
+            oBall.style.top = oTop + 'px';
+        },5);
+    };
+
+    function random(min,max){
+        return parseInt(Math.random()*(max - min) + min);
+    };
+};
+</script>
+</head>
+<body>
+<div id="wrap"></div>
+</body>
+</html>
