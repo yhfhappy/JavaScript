@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<title>4-上下移动效果</title>
+<meta charset="utf-8">
+<script src="move.js"></script>
+<style>
+body,ul,ol{margin: 0;padding: 0;}
+li{list-style: none;}
+#wrap{width: 800px;height: 360px;margin: 30px auto;position: relative;overflow:hidden;}
+#wrap img{border: none;vertical-align: top;}
+#wrap ul{width: 800px;height: 360px;position:absolute;left:0; top:0;z-index:1;}
+#wrap ul li{width: 800px;}
+#wrap ol{position: absolute;left: 50%;bottom: 10px;z-index:2;}
+#wrap ol li{width: 20px;height: 20px;background: #FFF;float: left;margin-left: 6px;text-align: center;line-height: 20px;color: red;border-radius: 50%;cursor: pointer;}
+#wrap ol .active{background: #F60;color: #FFF;}
+</style>
+
+<script>
+
+window.onload = function(){
+
+    var oUl = document.getElementsByTagName('ul')[0];
+    var aUlLi = oUl.getElementsByTagName('li');
+    var oWrap = document.getElementById('wrap');
+
+    var oOl = document.getElementsByTagName('ol')[0];
+    var aOlLi = oOl.getElementsByTagName('li');
+
+    var oneHeight = aUlLi[0].offsetHeight;
+    var iNow = 0;
+    var timer = null;
+
+    for(var i=0;i<aOlLi.length;i++){
+        aOlLi[i].index = i;
+
+        aOlLi[i].onmouseover = function(){
+            for(var i=0;i<aOlLi.length;i++){
+                aOlLi[i].className = "";
+            }
+
+            this.className = 'active';
+            
+            iNow = this.index;
+            
+            startMove(oUl,{top:-this.index*oneHeight});
+        };
+    }
+    
+    timer = setInterval(toRun,2000);
+    
+    oWrap.onmouseover = function(){
+        clearInterval(timer);
+    };
+    
+    oWrap.onmouseout = function(){
+        timer = setInterval(toRun,2000);
+    };
+    
+    function toRun(){
+    
+        if(iNow == aOlLi.length-1){
+            iNow = 0;
+        } else{
+            iNow++;
+        }
+        
+        for(var i=0;i<aOlLi.length;i++){
+            aOlLi[i].className = "";
+        }
+
+        aOlLi[iNow].className = 'active';
+        
+        startMove(oUl,{top:-iNow*oneHeight});
+    };
+
+};
+
+</script>
+</head>
+<body style="background-color:#CCC;">
+<div id="wrap">
+    <ul>
+        <li><img src="images/1.jpg" alt="" /></li>
+        <li><img src="images/2.jpg" alt="" /></li>
+        <li><img src="images/3.jpg" alt="" /></li>
+        <li><img src="images/4.jpg" alt="" /></li>
+    </ul>
+
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+
+<!--
+说明：
+1.轮播到最后一个的时候，把第一个定位到最下面；
+2.使用相对定位，否则其它图片位置会变化；
+-->
+</body>
+</html>

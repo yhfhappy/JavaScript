@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<title>鼠标移入切换</title>
+<meta charset="utf-8">
+<script src="move.js"></script>
+<style>
+body,ul,ol{margin: 0;padding: 0;}
+li{list-style: none;}
+#wrap{width: 800px;height: 360px;margin: 30px auto;position: relative;}
+#wrap img{border: none;vertical-align: top;}
+#wrap ul{width: 800px;height: 360px;overflow: hidden;}
+#wrap ul li{width: 800px;display: none;}
+#wrap ol{position: absolute;left: 50%;bottom: 10px;}
+#wrap ol li{width: 20px;height: 20px;background: #FFF;float: left;margin-left: 6px;text-align: center;line-height: 20px;color: red;border-radius: 50%;}
+#wrap ol .active{background: #F60;color: #FFF;}
+</style>
+
+<script>
+window.onload = function(){
+
+    var oUl = document.getElementsByTagName('ul')[0];
+    var aUlLi = oUl.getElementsByTagName('li');
+
+    var oOl = document.getElementsByTagName('ol')[0];
+    var aOlLi = oOl.getElementsByTagName('li');
+
+    for(var i=0;i<aOlLi.length;i++){
+        aOlLi[i].index = i;
+
+        aOlLi[i].onmouseover = function(){
+            for(var i=0;i<aOlLi.length;i++){
+                aOlLi[i].className = "";
+                aUlLi[i].style.display = "none";
+                aUlLi[i].style.filter = 'alpha(opacity=0)';
+                aUlLi[i].style.opacity = 0;
+            }
+
+            this.className = 'active';
+            aUlLi[this.index].style.display = 'block';
+            startMove(aUlLi[this.index],{opacity:100});
+        };
+    }
+
+};
+</script>
+</head>
+
+<body style="background-color:#CCC;">
+<div id="wrap">
+    <ul>
+        <li style="display:block;"><img src="images/1.jpg" alt="" /></li>
+        <li><img src="images/2.jpg" alt="" /></li>
+        <li><img src="images/3.jpg" alt="" /></li>
+        <li><img src="images/4.jpg" alt="" /></li>
+    </ul>
+
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+</body>
+</html>

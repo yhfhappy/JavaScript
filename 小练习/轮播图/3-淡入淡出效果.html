@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<title>鼠标移入切换</title>
+<meta charset="utf-8">
+<script src="move.js"></script>
+<style>
+body,ul,ol{margin: 0;padding: 0;}
+li{list-style: none;}
+#wrap{width: 800px;height: 360px;margin: 30px auto;position: relative;}
+#wrap img{border: none;vertical-align: top;}
+#wrap ul{width: 800px;height: 360px;overflow: hidden;}
+#wrap ul li{width: 800px;display: none;position: absolute;top: 0;left:0;opacity:0;filter:alpha(opacity:0);}
+#wrap ol{position: absolute;left: 50%;bottom: 10px;}
+#wrap ol li{width: 20px;height: 20px;background: #FFF;float: left;margin-left: 6px;text-align: center;line-height: 20px;color: red;border-radius: 50%;cursor: pointer;}
+#wrap ol .active{background: #F60;color: #FFF;}
+</style>
+
+<script>
+window.onload = function(){
+
+    var oUl = document.getElementsByTagName('ul')[0];
+    var aUlLi = oUl.getElementsByTagName('li');
+
+    var oOl = document.getElementsByTagName('ol')[0];
+    var aOlLi = oOl.getElementsByTagName('li');
+
+    for(var i=0;i<aOlLi.length;i++){
+        aOlLi[i].index = i;
+
+        aOlLi[i].onmouseover = function(){
+            for(var i=0;i<aOlLi.length;i++){
+                aOlLi[i].className = "";
+                
+                startMove(aUlLi[i],{opacity:0},function(){
+                    this.style.display = "none";
+                });
+            }
+
+            this.className = 'active';
+            aUlLi[this.index].style.display = 'block';
+            
+            startMove(aUlLi[this.index],{opacity:100});
+        };
+    }
+
+};
+</script>
+</head>
+<body style="background-color:#CCC;">
+<div id="wrap">
+    <ul>
+        <li style="display:block;filter=alpha(opacity:1);opacity:100;"><img src="images/1.jpg" alt="" /></li>
+        <li><img src="images/2.jpg" alt="" /></li>
+        <li><img src="images/3.jpg" alt="" /></li>
+        <li><img src="images/4.jpg" alt="" /></li>
+    </ul>
+
+    <ol>
+        <li class="active">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ol>
+</div>
+
+<!--
+说明：
+1.淡入淡出效果需要每一个li具有层叠关系，也就是绝对定位到一起；
+2.不过现实隐藏还是要有，不然如果有点击的话，就会形成点击不了的情况；
+-->
+</body>
+</html>
