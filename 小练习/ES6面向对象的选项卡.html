@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ES6面向对象的选项卡-YHF</title>
+<style>
+    .clearfix:after{
+        content: "";
+        display: block;
+        clear: both;
+    };
+
+    .clearfix{*zoom:1;}
+
+    *{margin:0;padding:0;}
+
+    body{background-color: #545A68;font-weight:300;}
+    
+    #wrap,#wrap2{
+        width:400px;
+        height:300px;
+        border:1px solid #CCC;
+        margin:20px auto;
+        background-color:#FFF;
+    }
+    
+    #wrap{margin-bottom:50px;}
+    
+    .tabBtn{background:blue;}
+    
+    .tabBtn li{
+        font-size:18px;
+        color:#FFF;
+        width:100px;
+        height:50px;
+        line-height: 50px;
+        text-align:center;
+        background-color:#31364A;
+        list-style:none;
+        float:left;
+    }
+    
+    .tabBtn .active{
+        background-color:#ED493F;
+    }
+    
+    .tabContent{
+        color:#000;
+        width:380px;
+        line-height:1.5;
+        padding:10px;
+        letter-spacing:2px;
+        text-align:justify;
+    }
+    
+    .tabContent div{display: none;}
+    
+    .tabContent .active{display:block;}
+</style>
+
+<script>
+    window.onload = ()=>{ 
+        let tab = new Tab();
+        tab.tabSwitch();
+        
+        let tab2 = new AutoTab('wrap2');
+        tab2.tabSwitch();
+    };
+    
+    class Tab {
+        constructor(id='wrap'){
+            this.id = document.getElementById(id);
+            this.tabBtn = this.id.getElementsByClassName('tabBtn')[0];
+            this.tabBtnLi = this.tabBtn.getElementsByTagName('li');
+            
+            this.tabContent = this.id.getElementsByClassName('tabContent')[0];
+            this.tabBtnDiv = this.tabContent.getElementsByTagName('div');
+        }
+        
+        tabSwitch(){
+            for(let i=0;i<this.tabBtnLi.length;i++){
+                
+                this.tabBtnLi[i].onclick = ()=>{
+                    
+                    for(let i=0;i<this.tabBtnLi.length;i++){
+                        this.tabBtnLi[i].className = "";
+                        this.tabBtnDiv[i].style.display = 'none';
+                    }
+                    
+                    this.tabBtnLi[i].className = "active";
+                    this.tabBtnDiv[i].style.display = 'block';
+                }
+            }
+        }
+    }
+    
+    class AutoTab extends Tab{
+        constructor(id){
+            super(id);
+            
+            setInterval(this.next.bind(this),1000);
+        }
+        
+        next(){
+            
+        }
+    };
+</script>
+</head>
+<body>
+    <div id="wrap">
+        <ul class="tabBtn clearfix">
+            <li class="active">新闻</li>
+            <li>科技</li>
+            <li>生活</li>
+            <li>健康</li>
+        </ul>
+        
+        <div class="tabContent">
+            <div class="active">用粗茶淡饭养胃，用清新空气洗肺，让灿烂阳光晒背，有空时朋友聚聚会，忘却辗转尘世的累。</div>
+            <div>有人赞美，我不会增添一份胖，有人贬损，我也不会减少一份瘦。我就是我，独一无二的我！不因偱守旧，也不标新立异，做独特的自我！有人理解也好，有人误解也罢，只要自己的言行举止不违背常理，自己问心无愧就足够了。</div>
+            <div>放弃一切东西比人们想像的要容易些，困难在于开始。一旦你放弃了某种你原以为是根本的东西，你就会发现你还可以放弃其他东西，以后又有许多其他东西可以放弃。</div>
+            <div>眸里，一半明媚一半清婉，随心随性，看尘飞扬，尘香淡淡且思几何，尘世里的好，终归要静心地去品味，品到水静无波，到纯净清朗。时光里没有告别，秋花摇曳，心语馨香斑斓入境。心，只需这一片时光的暖，亦足够。</div>
+        </div>
+    </div>
+    
+    
+    <div id="wrap2">
+        <ul class="tabBtn clearfix">
+            <li class="active">新闻</li>
+            <li>科技</li>
+            <li>生活</li>
+            <li>健康</li>
+        </ul>
+        
+        <div class="tabContent">
+            <div class="active">用粗茶淡饭养胃，用清新空气洗肺，让灿烂阳光晒背，有空时朋友聚聚会，忘却辗转尘世的累。</div>
+            <div>有人赞美，我不会增添一份胖，有人贬损，我也不会减少一份瘦。我就是我，独一无二的我！不因偱守旧，也不标新立异，做独特的自我！有人理解也好，有人误解也罢，只要自己的言行举止不违背常理，自己问心无愧就足够了。</div>
+            <div>放弃一切东西比人们想像的要容易些，困难在于开始。一旦你放弃了某种你原以为是根本的东西，你就会发现你还可以放弃其他东西，以后又有许多其他东西可以放弃。</div>
+            <div>眸里，一半明媚一半清婉，随心随性，看尘飞扬，尘香淡淡且思几何，尘世里的好，终归要静心地去品味，品到水静无波，到纯净清朗。时光里没有告别，秋花摇曳，心语馨香斑斓入境。心，只需这一片时光的暖，亦足够。</div>
+        </div>
+    </div>
+</body>
+</html>
