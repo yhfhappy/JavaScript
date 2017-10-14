@@ -61,13 +61,13 @@
 <script>
     window.onload = ()=>{ 
         let tab = new Tab();
-        tab.tabSwitch();
         
         let tab2 = new AutoTab('wrap2');
-        tab2.tabSwitch();
     };
     
+    /* 选项卡 */
     class Tab {
+        /* 构造函数 */
         constructor(id='wrap'){
             this.id = document.getElementById(id);
             this.tabBtn = this.id.getElementsByClassName('tabBtn')[0];
@@ -75,34 +75,56 @@
             
             this.tabContent = this.id.getElementsByClassName('tabContent')[0];
             this.tabBtnDiv = this.tabContent.getElementsByTagName('div');
+            
+            this.iNow=0;
+            
+            /* 调用初始化方法，每次实例化的时候自动执行 */
+            this.init();
         }
         
-        tabSwitch(){
+        /* 初始化方法 */
+        init(){
             for(let i=0;i<this.tabBtnLi.length;i++){
                 
                 this.tabBtnLi[i].onclick = ()=>{
-                    
-                    for(let i=0;i<this.tabBtnLi.length;i++){
-                        this.tabBtnLi[i].className = "";
-                        this.tabBtnDiv[i].style.display = 'none';
-                    }
-                    
-                    this.tabBtnLi[i].className = "active";
-                    this.tabBtnDiv[i].style.display = 'block';
+                    this.iNow=i;
+                    this.hide();
+                    this.show(i);
                 }
             }
         }
-    }
-    
-    class AutoTab extends Tab{
-        constructor(id){
-            super(id);
-            
-            setInterval(this.next.bind(this),1000);
+        
+        /* 点击事件执行的隐藏函数 */
+        hide(){
+            for(let i=0;i<this.tabBtnLi.length;i++){
+                this.tabBtnLi[i].className = "";
+                this.tabBtnDiv[i].style.display = 'none';
+            }
         }
         
-        next(){
+        /* 点击事件执行的显示函数 */
+        show(index){
+            this.tabBtnLi[index].className = "active";
+            this.tabBtnDiv[index].style.display = 'block';
+        }
+    }
+    
+    /* 继承 */
+    class AutoTab extends Tab{
+        constructor(id){
+            /* 继承父级的东西 */
+            super(id);
             
+            setInterval(this.autoPlay.bind(this),2000);
+        }
+        
+        autoPlay(){
+            this.iNow++;
+            
+            if(this.iNow==this.tabBtnLi.length)this.iNow=0;
+            
+            this.hide();
+            this.show(this.iNow);
         }
     };
 </script>
