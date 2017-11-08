@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>35选7</title>
+
+    <style>
+        #wrap{width:500px;height:500px;background:green;font-size:40px;margin:30px auto;color:#fff;text-align:center;}
+    </style>
+
+    <script>
+    window.onload = function (){
+        var oBtn = document.getElementById('btn');
+        var oBox = document.getElementById('box');
+        var obj = {};
+
+        oBtn.onclick = function (){
+            var randomArr = randomNum(35,7);
+
+            oBox.innerHTML = randomArr;
+
+            var oRD = Math.random();
+            obj[oRD] = randomArr;
+            window.location.hash = oRD;
+
+            // hash
+            // window.location.hash = randomArr;
+        };
+
+        // onhashchange
+        window.onhashchange = function (){
+            // 避免obj对象为空时返回undefined
+            var randomArr = obj[window.location.hash.substring(1)] || '';
+
+            oBox.innerHTML = randomArr;
+        };
+
+        function randomNum(all,now){
+            var arr = [];
+            var newArr = [];
+
+            // 取出1~35的数
+            for(var i=1;i<=all;i++){
+                arr.push(i);
+            }
+
+            // 从35个数里面随机选出7个数
+            for(var i=1;i<=now;i++){
+                var newRanNum = arr.splice(Math.floor(Math.random()*arr.length),1);
+                newArr.push(newRanNum);
+            }
+
+            return newArr;
+        };
+    };
+    </script>
+</head>
+<body>
+    <div id="wrap">
+        <input type="button" value="35选7" id="btn" />
+        <div id="box"></div>
+    </div>
+</body>
+</html>
